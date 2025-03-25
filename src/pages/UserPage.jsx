@@ -33,8 +33,6 @@ import {
   InputAdornment,
   useTheme,
   useMediaQuery,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -60,12 +58,9 @@ const UserPage = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Detect small screen
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -78,7 +73,7 @@ const UserPage = () => {
       return;
     }
 
-    setError(""); // Clear error if all fields are valid
+    setError("");
     dispatch(
       addUser({
         ...newUser,
@@ -86,9 +81,6 @@ const UserPage = () => {
         updated_at: new Date().toLocaleDateString(),
       })
     );
-    setSnackbarMessage("User added successfully!");
-    setSnackbarSeverity("success");
-    setSnackbarOpen(true);
     setNewUser({
       name: "",
       email: "",
@@ -96,14 +88,14 @@ const UserPage = () => {
       created_at: "",
       updated_at: "",
     });
-    setShowForm(false); // Hide the form after adding user
+    setShowForm(false);
   };
 
   // Edit user
   const handleEditUser = (user) => {
     setEditingUser(user);
     setNewUser({ ...user });
-    setShowForm(true); // Show form when editing
+    setShowForm(true);
   };
 
   // Update user
@@ -113,13 +105,10 @@ const UserPage = () => {
       return;
     }
 
-    setError(""); // Clear error if all fields are valid
+    setError("");
     dispatch(
       updateUser({ ...newUser, updated_at: new Date().toLocaleDateString() })
     );
-    setSnackbarMessage("User updated successfully!");
-    setSnackbarSeverity("success");
-    setSnackbarOpen(true);
     setEditingUser(null);
     setNewUser({
       name: "",
@@ -128,23 +117,29 @@ const UserPage = () => {
       created_at: "",
       updated_at: "",
     });
-    setShowForm(false); // Hide form after update
+    setShowForm(false);
+  };
+
+  const handleCloseDialog = () => {
+    setEditingUser(null);
+    setNewUser({
+      name: "",
+      email: "",
+      phone: "",
+      created_at: "",
+      updated_at: "",
+    });
+    setShowForm(false);
   };
 
   // Delete user
   const handleDeleteUser = (userId) => {
     dispatch(deleteUser(userId));
-    setSnackbarMessage("User deleted successfully!");
-    setSnackbarSeverity("success");
-    setSnackbarOpen(true);
   };
 
   // Delete selected users
   const handleDeleteSelected = () => {
     selectedUsers.forEach((id) => dispatch(deleteUser(id)));
-    setSnackbarMessage("Selected users deleted successfully!");
-    setSnackbarSeverity("success");
-    setSnackbarOpen(true);
     setSelectedUsers([]);
   };
 
@@ -166,11 +161,6 @@ const UserPage = () => {
     }
   };
 
-  // Close Snackbar
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
-
   return (
     <>
       <Navbar />
@@ -180,7 +170,7 @@ const UserPage = () => {
           component="main"
           sx={{
             flexGrow: 1,
-            p: { xs: 2, sm: 3 }, // Padding adjusts for different screen sizes
+            p: { xs: 2, sm: 3 },
           }}
         >
           <Container>
@@ -191,13 +181,13 @@ const UserPage = () => {
             {/* Show the Create User Button */}
             <Box mb={3}>
               <Button
-                onClick={() => setShowForm(true)} // Show the form when clicked
+                onClick={() => setShowForm(true)}
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon />}
                 sx={{
-                  width: "100%", // Make button full width on small screens
-                  maxWidth: "200px", // Limit width on larger screens
+                  width: "100%",
+                  maxWidth: "200px",
                 }}
               >
                 Create User
@@ -205,13 +195,7 @@ const UserPage = () => {
             </Box>
 
             {/* Dialog for Create/Update User */}
-            <Dialog
-              open={showForm}
-              onClose={() => {
-                setEditingUser(null);
-                setShowForm(false);
-              }}
-            >
+            <Dialog open={showForm} onClose={handleCloseDialog}>
               <DialogTitle>
                 {editingUser ? "Edit User" : "Create User"}
               </DialogTitle>
@@ -281,7 +265,7 @@ const UserPage = () => {
                 )}
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setShowForm(false)} color="secondary">
+                <Button onClick={handleCloseDialog} color="secondary">
                   Cancel
                 </Button>
                 <Button
@@ -311,7 +295,7 @@ const UserPage = () => {
             <TableContainer
               sx={{
                 marginTop: 3,
-                overflowX: "auto", // Makes the table scrollable on small screens
+                overflowX: "auto",
               }}
             >
               <Paper>
@@ -364,11 +348,16 @@ const UserPage = () => {
                   </TableHead>
                   <TableBody>
                     {status === "loading" ? (
-                      <TableRow>
-                        <TableCell colSpan={7}>
-                          <CircularProgress size={24} />
-                        </TableCell>
-                      </TableRow>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                        }}
+                      >
+                        <CircularProgress />
+                      </Box>
                     ) : (
                       users.map((user) => (
                         <TableRow key={user.id}>
@@ -419,21 +408,6 @@ const UserPage = () => {
           </Container>
         </Box>
       </Box>
-
-      {/* Snackbar for notifications */}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </>
   );
 };

@@ -347,9 +347,13 @@ export default function Sidebar() {
             { text: "Users", icon: <PeopleIcon />, path: "/users" },
             { text: "Analytics", icon: <BarChartIcon />, path: "/analytics" },
             { text: "Products Data", icon: <StoreIcon />, path: "/products" },
+            { text: "Orders", icon: <ReceiptIcon />, path: "/orders" },
             { text: "FAQ", icon: <HelpIcon />, path: "/faq" },
-            { text: "Reports", icon: <ReceiptIcon />, path: "/reports" },
-            { text: "Sales", icon: <AttachMoneyIcon />, path: "/sales" },
+            {
+              text: "Covid Track",
+              icon: <AttachMoneyIcon />,
+              path: "/covidtrack",
+            },
             { text: "Traffic", icon: <TrendingUpIcon />, path: "/traffic" },
           ].map((item) => (
             <ListItem

@@ -4,6 +4,10 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import About from "./pages/About";
 import UserPage from "./pages/UserPage";
+import ProductsData from "./pages/ProductsData";
+import OrdersPage from "./pages/OrdersPage";
+import SalePage from "./pages/SalesPage";
+import CovidChartsPage from "./pages/CovidChartsPage ";
 
 function App() {
   return (
@@ -14,6 +18,9 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
           <Route path="/users" element={<UserPage />} />
+          <Route path="/products" element={<ProductsData />} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/covidtrack" element={<CovidChartsPage />} />
         </Routes>
       </Router>
     </div>

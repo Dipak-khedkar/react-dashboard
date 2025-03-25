@@ -5,13 +5,15 @@ import Navbar from "../components/Navbar";
 
 const About = () => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <>
       <Navbar />
-      <Sidebar />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Typography variant="h6">About</Typography>
+      <Box sx={{ display: "flex" }}>
+        <Sidebar />
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Typography variant="h6">About</Typography>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
