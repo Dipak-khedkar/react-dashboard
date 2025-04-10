@@ -83,7 +83,7 @@ const CreateUser = () => {
               marginTop={2}
               sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
             >
-              Create User
+              New User
             </Typography>
             <CardContent>
               <TextField

@@ -24,7 +24,7 @@ export const createUser = createAsyncThunk(
   async (userData: User, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://67e1b45d58cc6bf78526d6eb.mockapi.io/users",
+        "https://67d6bd11286fdac89bc2d4b0.mockapi.io/users",
         userData
       );
       return response.data;
@@ -39,7 +39,7 @@ export const fetchUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://67e1b45d58cc6bf78526d6eb.mockapi.io/users"
+        "https://67d6bd11286fdac89bc2d4b0.mockapi.io/users"
       );
       return res.data;
     } catch (error) {
