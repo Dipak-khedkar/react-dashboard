@@ -1,0 +1,23 @@
+/* This targets the docked state of the MuiDrawer */
+.css-11nh28a-MuiDrawer-docked {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto; /* Prevents drawer from growing or shrinking */
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+/* Media query for small screens */
+@media (max-width: 600px) {
+  /* Adjust drawer to be hidden or change behavior on small screens */
+  .css-11nh28a-MuiDrawer-docked {
+    display: none; /* Hide the drawer completely */
+    width: 0; /* Optional: Ensure no width is set */
+  }
+
+  /* If you want to make the drawer full width on small screens */
+  .MuiDrawer-paper {
+    width: 100% !important; /* Ensure the drawer takes full width on small screens */
+  }
+}
