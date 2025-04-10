@@ -18,7 +18,7 @@ export const validateAuth = (data: AuthData) => {
     errors.email = "Email is required!";
   }
 
-  if (!validator.isLength(password, { min: 8 })) {
+  if (!validator.isLength(password)) {
     errors.password = "Password should have atleast 8 chars";
   }
 

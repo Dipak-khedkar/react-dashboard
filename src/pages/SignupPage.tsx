@@ -51,17 +51,19 @@ const SignupPage = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ backgroundColor: "ActiveCaption" }}>
       <Grid
         container
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          height: "100vh",
+          margin: "10px",
         }}
       >
-        <Grid>
-          <Card sx={{ width: "400px", padding: "10px" }}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Card sx={{ padding: "10px" }}>
             <Typography
               variant="h6"
               textAlign="center"

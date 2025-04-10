@@ -63,7 +63,7 @@ const AuthPage = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ backgroundColor: "ActiveCaption" }}>
       <Grid
         container
         spacing={2}
@@ -72,13 +72,13 @@ const AuthPage = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          height: "100vh",
         }}
       >
-        <Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Card
             sx={{
               boxShadow: 3,
-              width: "370px",
               padding: "10px",
             }}
           >
